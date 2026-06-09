@@ -1,13 +1,15 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { Link } from "@/i18n/routing";
+import { usePathname } from "@/i18n/routing";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown, Sun, Moon, Phone, Mail, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
+import { LanguageSwitcher } from "@/components/language-switcher";
+import { useTranslations } from "next-intl";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -45,6 +47,7 @@ export default function PublicNavbar() {
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const tNav = useTranslations("Navigation");
 
   useEffect(() => { setMounted(true); }, []);
   useEffect(() => {
@@ -113,7 +116,12 @@ export default function PublicNavbar() {
                         : "text-gray-700 dark:text-gray-300 hover:text-[#1a5276] dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20"
                     )}
                   >
-                    {link.label}
+                    {link.label === "Home" ? tNav("home") 
+                      : link.label === "Services" ? tNav("services")
+                      : link.label === "Projects" ? tNav("projects")
+                      : link.label === "News" ? tNav("news")
+                      : link.label === "Contact" ? tNav("contact")
+                      : link.label}
                     {link.children && <ChevronDown className="w-3 h-3" />}
                   </Link>
 
@@ -145,6 +153,7 @@ export default function PublicNavbar() {
 
             {/* Right actions */}
             <div className="flex items-center gap-2">
+              <LanguageSwitcher />
               {mounted && (
                 <Button
                   variant="ghost"
@@ -195,7 +204,12 @@ export default function PublicNavbar() {
                       )}
                       onClick={() => setMobileOpen(false)}
                     >
-                      {link.label}
+                      {link.label === "Home" ? tNav("home") 
+                        : link.label === "Services" ? tNav("services")
+                        : link.label === "Projects" ? tNav("projects")
+                        : link.label === "News" ? tNav("news")
+                        : link.label === "Contact" ? tNav("contact")
+                        : link.label}
                     </Link>
                     {link.children && (
                       <div className="pl-4 mt-1 space-y-1">
