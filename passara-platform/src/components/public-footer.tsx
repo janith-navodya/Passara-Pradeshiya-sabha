@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { Phone, Mail, MapPin, Clock, Globe } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 
